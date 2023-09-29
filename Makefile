@@ -28,3 +28,11 @@ lint:
 
 .PHONY: update
 update: install migrate install-pre-commit;
+
+.PHONY: build-frontend
+build-frontend:
+	npm run build
+
+.PHONY: run-frontend
+run-frontend:
+	npm run watch
