@@ -12,7 +12,7 @@ module.exports = {
     entry: path.join(__dirname, "assets/src/js/index"),
 
     output: {
-        path: path.join(__dirname, "assets/dist"),
+        path: path.join(__dirname, "backend/assets/dist"),
         filename: "[name]-[hash].js",
         clean: true,
     },

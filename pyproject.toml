@@ -11,6 +11,8 @@ python = "^3.11"
 django = "^4.2.5"
 djangorestframework = "^3.14.0"
 django-webpack-loader = "^2.0.1"
+django-cors-headers = "^4.2.0"
+ipdb = "^0.13.13"
 
 
 [tool.poetry.group.dev.dependencies]

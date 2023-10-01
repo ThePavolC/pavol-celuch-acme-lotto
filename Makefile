@@ -4,19 +4,19 @@ install:
 
 .PHONY: run-server
 run-server:
-	poetry run python -m core.manage runserver
+	poetry run python backend/manage.py runserver
 
 .PHONY: migrate
 migrate:
-	poetry run python -m core.manage migrate
+	poetry run python backend/manage.py migrate
 
 .PHONY: migrations
 migrations:
-	poetry run python -m core.manage makemigrations
+	poetry run python backend/manage.py makemigrations
 
 .PHONY: superuser
 superuser:
-	poetry run python -m core.manage createsuperuser
+	poetry run python backend/manage.py createsuperuser
 
 .PHONY: install-pre-commit
 install-pre-commit:
