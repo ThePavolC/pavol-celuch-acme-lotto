@@ -1,4 +1,6 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+
 import Home from "./Home";
 import Login from "./Login";
 import Layout from "./Layout";
@@ -6,8 +8,7 @@ import Signup from "./Signup";
 import ErrorPage from "./ErrorPage";
 import RequiregAuth from "./RequiredAuth";
 import Lottery from "./Lottery/Lottery";
-
-import { Routes, Route } from "react-router-dom";
+import MyBallots from "./MyBallots";
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
 
                 <Route element={<RequiregAuth />}>
                     <Route path="lottery" element={<Lottery />} />
+                    <Route path="my-ballots" element={<MyBallots />} />
                 </Route>
 
                 <Route path="*" element={<ErrorPage />} />

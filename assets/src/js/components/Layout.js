@@ -10,6 +10,7 @@ export default function Layout() {
     const { cachedAuth } = useCachedAuth();
 
     const isDev = auth?.isStaff || cachedAuth?.isStaff;
+    const isLoggedIn = auth || cachedAuth;
 
     return (
         <Container>
@@ -24,15 +25,27 @@ export default function Layout() {
                             <Nav.Link as={NavLink} to="/">
                                 Home
                             </Nav.Link>
-                            <Nav.Link as={NavLink} to="/login">
-                                Login
-                            </Nav.Link>
-                            <Nav.Link as={NavLink} to="/signup">
-                                Signup
-                            </Nav.Link>
-                            <Nav.Link as={NavLink} to="/lottery">
-                                Lottery
-                            </Nav.Link>
+
+                            {isLoggedIn ? (
+                                <>
+                                    <Nav.Link as={NavLink} to="/lottery">
+                                        Lottery
+                                    </Nav.Link>
+                                    <Nav.Link as={NavLink} to="/my-ballots">
+                                        My Ballots
+                                    </Nav.Link>
+                                </>
+                            ) : (
+                                <>
+                                    <Nav.Link as={NavLink} to="/login">
+                                        Login
+                                    </Nav.Link>
+                                    <Nav.Link as={NavLink} to="/signup">
+                                        Signup
+                                    </Nav.Link>
+                                </>
+                            )}
+
                             {isDev && (
                                 <>
                                     <Nav.Link href="/admin/">
