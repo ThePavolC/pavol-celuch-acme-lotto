@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "webpack_loader",
+    "django_extensions",
     "access",
     "ballot",
     "lottery",
@@ -143,3 +144,8 @@ WEBPACK_LOADER = {
         "IGNORE": [r".+\.hot-update.js", r".+\.map"],
     }
 }
+
+# shell_plus config
+# Always use IPython for shell_plus
+SHELL_PLUS = "ipython"
+SHELL_PLUS_PRINT_SQL = True

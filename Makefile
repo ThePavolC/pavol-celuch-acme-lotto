@@ -6,6 +6,10 @@ install:
 run-server:
 	poetry run python backend/manage.py runserver
 
+.PHONY: shell
+shell:
+	poetry run python backend/manage.py shell_plus --ipython
+
 .PHONY: migrate
 migrate:
 	poetry run python backend/manage.py migrate
