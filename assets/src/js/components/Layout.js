@@ -5,11 +5,11 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 export default function Layout() {
     return (
         <Container>
-            <h1>Layout page test</h1>
+            <h1>✨ BynderLotto ✨</h1>
 
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand>App name</Navbar.Brand>
+                    <Navbar.Brand>🎲</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav>

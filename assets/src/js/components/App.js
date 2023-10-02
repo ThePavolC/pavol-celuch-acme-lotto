@@ -5,7 +5,7 @@ import Layout from "./Layout";
 import Signup from "./Signup";
 import ErrorPage from "./ErrorPage";
 import RequiregAuth from "./RequiredAuth";
-import Lottery from "./Lottery";
+import Lottery from "./Lottery/Lottery";
 
 import { Routes, Route } from "react-router-dom";
 
