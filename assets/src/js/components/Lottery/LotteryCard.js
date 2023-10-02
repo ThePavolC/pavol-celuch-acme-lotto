@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Card from "react-bootstrap/Card";
 
@@ -7,8 +8,6 @@ import ShowWinnerModalButton from "./ShowWinnerModalButton";
 import { prettyDate } from "../../utils/utils";
 
 const LotteryCard = ({ lottery }) => {
-    // check proptypes
-
     const headerCopy = lottery.active
         ? `Active lottery on ${prettyDate(lottery.created)}`
         : `Lottery on ${prettyDate(lottery.created)}`;
@@ -36,6 +35,17 @@ const LotteryCard = ({ lottery }) => {
             </Card.Body>
         </Card>
     );
+};
+
+LotteryCard.propTypes = {
+    lottery: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string.isRequired,
+        prize: PropTypes.string.isRequired,
+        created: PropTypes.string.isRequired,
+        active: PropTypes.bool.isRequired,
+        num_ballots: PropTypes.number.isRequired,
+    }),
 };
 
 export default LotteryCard;

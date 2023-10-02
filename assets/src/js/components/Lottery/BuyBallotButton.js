@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
@@ -9,7 +10,6 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useCachedAuth from "../../hooks/useCachedAuth";
 
 const BuyBallotButton = ({ lottery }) => {
-    // check proptypes
     const { auth } = useAuth();
     const { cachedAuth } = useCachedAuth();
 
@@ -18,7 +18,7 @@ const BuyBallotButton = ({ lottery }) => {
     const [success, setSuccess] = useState(false);
 
     const axiosPrivate = useAxiosPrivate();
-
+    console.log(lottery);
     const handleBuyBallot = async (e) => {
         setErrMsg("");
         setSuccess(false);
@@ -73,6 +73,17 @@ const BuyBallotButton = ({ lottery }) => {
             <Button onClick={handleBuyBallot}>{content}</Button>
         </div>
     );
+};
+
+BuyBallotButton.propTypes = {
+    lottery: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string,
+        prize: PropTypes.string,
+        created: PropTypes.string,
+        active: PropTypes.bool,
+        num_ballots: PropTypes.number,
+    }),
 };
 
 export default BuyBallotButton;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Button from "react-bootstrap/Button";
@@ -6,7 +7,6 @@ import Modal from "react-bootstrap/Modal";
 import { Alert } from "react-bootstrap";
 
 const ShowWinnerModalButton = ({ lottery }) => {
-    // check proptypes
     const [show, setShow] = useState(false);
     const [err, setErr] = useState("");
     const [winnerName, setWinnerName] = useState("");
@@ -64,6 +64,17 @@ const ShowWinnerModalButton = ({ lottery }) => {
             </Modal>
         </>
     );
+};
+
+ShowWinnerModalButton.propTypes = {
+    lottery: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        prize: PropTypes.string,
+        created: PropTypes.string,
+        active: PropTypes.bool,
+        num_ballots: PropTypes.number,
+    }),
 };
 
 export default ShowWinnerModalButton;
