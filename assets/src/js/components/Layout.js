@@ -10,7 +10,7 @@ export default function Layout() {
     const { cachedAuth } = useCachedAuth();
 
     const isDev = auth?.isStaff || cachedAuth?.isStaff;
-    const isLoggedIn = auth || cachedAuth;
+    const isLoggedIn = auth?.userID || cachedAuth?.userId;
 
     return (
         <Container>
