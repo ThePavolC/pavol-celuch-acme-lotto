@@ -24,6 +24,7 @@ class GetTokenView(ObtainAuthToken):
                 "user_id": user.pk,
                 "email": user.email,
                 "username": user.username,
+                "is_staff": user.is_staff,
             }
         )
 

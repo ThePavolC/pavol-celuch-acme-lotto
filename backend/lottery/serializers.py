@@ -16,7 +16,7 @@ class LotterySerializer(serializers.ModelSerializer):
 
     def get_active(self, obj):
         today = now().date()
-        return obj.created.date == today
+        return obj.created.date() == today
 
     def get_num_ballots(self, obj):
         return obj.ballots.count()
