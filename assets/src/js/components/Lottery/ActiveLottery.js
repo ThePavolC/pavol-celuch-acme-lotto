@@ -11,20 +11,27 @@ export default function ActiveLottery() {
 
     const axiosPrivate = useAxiosPrivate();
 
-    useEffect(() => {
-        const fetchActiveLottery = async () => {
-            const response = await axiosPrivate.get("api/lottery/active/");
-            setActiveLottery(response.data && response.data[0]);
-        };
+    const fetchActiveLottery = async () => {
+        const response = await axiosPrivate.get("api/lottery/active/");
+        setActiveLottery(response.data && response.data[0]);
+    };
 
+    useEffect(() => {
         fetchActiveLottery();
     }, []);
+
+    const refreshCard = () => {
+        fetchActiveLottery();
+    };
 
     return (
         <Container>
             <h1>Active Lottery</h1>
             {activeLottery ? (
-                <LotteryCard lottery={activeLottery} />
+                <LotteryCard
+                    lottery={activeLottery}
+                    refreshCard={refreshCard}
+                />
             ) : (
                 <EmptyCard />
             )}

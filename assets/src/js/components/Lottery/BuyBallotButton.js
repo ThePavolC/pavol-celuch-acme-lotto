@@ -9,7 +9,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useCachedAuth from "../../hooks/useCachedAuth";
 
-const BuyBallotButton = ({ lottery }) => {
+const BuyBallotButton = ({ lottery, refreshCard }) => {
     const { auth } = useAuth();
     const { cachedAuth } = useCachedAuth();
 
@@ -18,7 +18,7 @@ const BuyBallotButton = ({ lottery }) => {
     const [success, setSuccess] = useState(false);
 
     const axiosPrivate = useAxiosPrivate();
-    console.log(lottery);
+
     const handleBuyBallot = async (e) => {
         setErrMsg("");
         setSuccess(false);
@@ -31,6 +31,7 @@ const BuyBallotButton = ({ lottery }) => {
             });
             setLoading(false);
             setSuccess(true);
+            refreshCard();
         } catch (err) {
             setLoading(false);
             setErrMsg("Ops something went wrong when creating ballot.");
@@ -84,6 +85,7 @@ BuyBallotButton.propTypes = {
         active: PropTypes.bool,
         num_ballots: PropTypes.number,
     }),
+    refreshCard: PropTypes.func.isRequired,
 };
 
 export default BuyBallotButton;

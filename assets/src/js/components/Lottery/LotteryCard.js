@@ -7,7 +7,7 @@ import BuyBallotButton from "./BuyBallotButton";
 import ShowWinnerModalButton from "./ShowWinnerModalButton";
 import { prettyDate } from "../../utils/utils";
 
-const LotteryCard = ({ lottery }) => {
+const LotteryCard = ({ lottery, refreshCard }) => {
     const headerCopy = lottery.active
         ? `Active lottery on ${prettyDate(lottery.created)}`
         : `Lottery on ${prettyDate(lottery.created)}`;
@@ -28,7 +28,10 @@ const LotteryCard = ({ lottery }) => {
                 <Card.Text>Number of ballots: {lottery.num_ballots}</Card.Text>
 
                 {lottery.active ? (
-                    <BuyBallotButton lottery={lottery} />
+                    <BuyBallotButton
+                        lottery={lottery}
+                        refreshCard={refreshCard}
+                    />
                 ) : (
                     <ShowWinnerModalButton lottery={lottery} />
                 )}
@@ -46,6 +49,7 @@ LotteryCard.propTypes = {
         active: PropTypes.bool.isRequired,
         num_ballots: PropTypes.number.isRequired,
     }),
+    refreshCard: PropTypes.func,
 };
 
 export default LotteryCard;
