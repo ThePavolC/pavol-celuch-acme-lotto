@@ -12,8 +12,8 @@ class LotteryManager(models.Manager):
 class Lottery(models.Model):
     name = models.CharField(max_length=100)
     prize = models.CharField(max_length=100)
-    ballot = models.ManyToManyField(
-        User, through="ballot.Ballot", related_name="lottery_ballot"
+    ballots = models.ManyToManyField(
+        User, through="ballot.Ballot", related_name="ballots"
     )
     created = models.DateTimeField(default=now)
 
