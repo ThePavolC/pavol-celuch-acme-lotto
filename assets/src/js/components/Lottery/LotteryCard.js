@@ -13,15 +13,20 @@ const LotteryCard = ({ lottery }) => {
         ? `Active lottery on ${prettyDate(lottery.created)}`
         : `Lottery on ${prettyDate(lottery.created)}`;
 
+    const getRandomPrizeIcon = () => {
+        const icons = ["💸", "💰", "🧧", "🏆", "🏅", "🎁", "💝"];
+        return icons[Math.floor(Math.random() * icons.length)];
+    };
+
     return (
         <Card>
             <Card.Header>{headerCopy}</Card.Header>
             <Card.Body>
                 <Card.Title>{lottery.name}</Card.Title>
                 <Card.Text>
-                    <p>Prize: {lottery.prize}</p>
-                    <p>Number of ballots: {lottery.num_ballots}</p>
+                    Prize {getRandomPrizeIcon()}: {lottery.prize}
                 </Card.Text>
+                <Card.Text>Number of ballots: {lottery.num_ballots}</Card.Text>
 
                 {lottery.active ? (
                     <BuyBallotButton lottery={lottery} />
