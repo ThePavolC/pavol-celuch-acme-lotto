@@ -9,6 +9,7 @@ import ErrorPage from "./ErrorPage";
 import RequiregAuth from "./RequiredAuth";
 import Lottery from "./Lottery/Lottery";
 import MyBallots from "./MyBallots";
+import Logout from "./Logout";
 
 export default function App() {
     return (
@@ -21,6 +22,7 @@ export default function App() {
                 <Route element={<RequiregAuth />}>
                     <Route path="lottery" element={<Lottery />} />
                     <Route path="my-ballots" element={<MyBallots />} />
+                    <Route path="logout" element={<Logout />} />
                 </Route>
 
                 <Route path="*" element={<ErrorPage />} />

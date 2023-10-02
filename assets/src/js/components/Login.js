@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Alert, Button, Container, Form } from "react-bootstrap";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
 import useCachedAuth from "../hooks/useCachedAuth";
@@ -11,8 +11,6 @@ const Login = () => {
     const { setCachedAuth } = useCachedAuth();
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
 
     const userRef = useRef();
     const errRef = useRef();
@@ -51,7 +49,7 @@ const Login = () => {
             setCachedAuth({ username, userId, password, token, isStaff });
 
             resetForm();
-            navigate(from, { replace: true });
+            navigate("/lottery", { replace: true });
         } catch (err) {
             if (!err?.response) {
                 setErrMsg("No server response");
