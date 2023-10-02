@@ -24,10 +24,13 @@ export default function AllLotteries() {
 
     const fetchAllLotteries = async (url = "api/lottery/") => {
         setLoading(true);
+
         const response = await axiosPrivate.get(url);
+
         setAllLotteries(response.data?.results);
         setPrevNextUrls(response.data);
         setAllLotteriesCount(response.data.count);
+
         setLoading(false);
     };
 
