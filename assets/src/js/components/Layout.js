@@ -2,7 +2,15 @@ import React from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
+import useAuth from "../hooks/useAuth";
+import useCachedAuth from "../hooks/useCachedAuth";
+
 export default function Layout() {
+    const { auth } = useAuth();
+    const { cachedAuth } = useCachedAuth();
+
+    const isDev = auth?.isStaff || cachedAuth?.isStaff;
+
     return (
         <Container>
             <h1>✨ BynderLotto ✨</h1>
@@ -25,8 +33,14 @@ export default function Layout() {
                             <Nav.Link as={NavLink} to="/lottery">
                                 Lottery
                             </Nav.Link>
-                            <Nav.Link href="/admin/">Admin (Dev)</Nav.Link>
-                            <Nav.Link href="/api/">Api (Dev)</Nav.Link>
+                            {isDev && (
+                                <>
+                                    <Nav.Link href="/admin/">
+                                        Admin (Dev)
+                                    </Nav.Link>
+                                    <Nav.Link href="/api/">Api (Dev)</Nav.Link>
+                                </>
+                            )}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

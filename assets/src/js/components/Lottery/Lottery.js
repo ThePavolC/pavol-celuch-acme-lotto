@@ -32,7 +32,7 @@ export default function Lottery() {
     useEffect(() => {
         const fetchActiveLottery = async () => {
             const response = await axiosPrivate.get("api/lottery/active/");
-            setActiveLottery(response.data.results && response.data.results[0]);
+            setActiveLottery(response.data && response.data[0]);
         };
 
         fetchActiveLottery();

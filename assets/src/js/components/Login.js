@@ -45,9 +45,10 @@ const Login = () => {
 
             const token = response?.data?.token;
             const userId = response?.data?.user_id;
+            const isStaff = response?.data?.is_staff;
 
-            setAuth({ username, userId, password, token });
-            setCachedAuth({ username, userId, password, token });
+            setAuth({ username, userId, password, token, isStaff });
+            setCachedAuth({ username, userId, password, token, isStaff });
 
             resetForm();
             navigate(from, { replace: true });
