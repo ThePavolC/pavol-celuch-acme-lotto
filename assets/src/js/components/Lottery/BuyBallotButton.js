@@ -5,14 +5,9 @@ import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 
-import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import useCachedAuth from "../../hooks/useCachedAuth";
 
 const BuyBallotButton = ({ lottery, refreshCard }) => {
-    const { auth } = useAuth();
-    const { cachedAuth } = useCachedAuth();
-
     const [loading, setLoading] = useState(false);
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState(false);
@@ -27,7 +22,6 @@ const BuyBallotButton = ({ lottery, refreshCard }) => {
         try {
             await axiosPrivate.post("api/ballot/", {
                 lottery: lottery.id,
-                user: auth?.userId || cachedAuth?.userId,
             });
             setLoading(false);
             setSuccess(true);
@@ -54,7 +48,7 @@ const BuyBallotButton = ({ lottery, refreshCard }) => {
     );
 
     return (
-        <div>
+        <>
             <Alert
                 show={errMsg ? true : false}
                 variant="danger"
@@ -72,7 +66,7 @@ const BuyBallotButton = ({ lottery, refreshCard }) => {
                 Ballot created
             </Alert>
             <Button onClick={handleBuyBallot}>{content}</Button>
-        </div>
+        </>
     );
 };
 

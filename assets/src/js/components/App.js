@@ -8,7 +8,7 @@ import Signup from "./Signup";
 import ErrorPage from "./ErrorPage";
 import RequiregAuth from "./RequiredAuth";
 import Lottery from "./Lottery/Lottery";
-import MyBallots from "./MyBallots";
+import MyBallots from "./Ballots/MyBallots";
 import Logout from "./Logout";
 
 export default function App() {

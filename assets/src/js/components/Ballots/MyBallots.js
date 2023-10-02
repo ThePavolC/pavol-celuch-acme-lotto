@@ -2,32 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import Container from "react-bootstrap/Container";
 import Pagination from "react-bootstrap/Pagination";
-import Card from "react-bootstrap/Card";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { Button } from "react-bootstrap";
-import { prettyDate } from "../utils/utils";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
-const DeleteBallot = ({ ballot }) => {
-    return <Button>Delete</Button>;
-};
-
-const Ballot = ({ ballot }) => {
-    return (
-        <Card>
-            <Card.Body>
-                <Card.Title>Lottery: {ballot.lottery.name}</Card.Title>
-                <Card.Text>
-                    Ballot received on {prettyDate(ballot.created)}
-                </Card.Text>
-                <DeleteBallot ballot={ballot} />
-            </Card.Body>
-        </Card>
-    );
-};
-
-const EmptyBallots = () => {
-    return <div>No ballots</div>;
-};
+import EmptyBallots from "./EmptyBallots";
+import BallotCard from "./BallotCard";
+import { Spinner } from "react-bootstrap";
 
 export default function MyBallots() {
     const [ballots, setBallots] = useState([]);
@@ -72,9 +51,15 @@ export default function MyBallots() {
             {ballots ? (
                 <>
                     <Container>
-                        {ballots.map((b) => (
-                            <Ballot ballot={b} key={b.id} />
-                        ))}
+                        {loading ? (
+                            <Spinner />
+                        ) : (
+                            <>
+                                {ballots.map((b) => (
+                                    <BallotCard ballot={b} key={b.id} refreshBallots={fetchBallots}/>
+                                ))}
+                            </>
+                        )}
                     </Container>
                     <Pagination>
                         <Pagination.Prev
