@@ -25,6 +25,8 @@ export default function Layout() {
                             <Nav.Link as={NavLink} to="/lottery">
                                 Lottery
                             </Nav.Link>
+                            <Nav.Link href="/admin/">Admin (Dev)</Nav.Link>
+                            <Nav.Link href="/api/">Api (Dev)</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

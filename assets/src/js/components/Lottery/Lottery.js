@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { Container } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Pagination from "react-bootstrap/Pagination";
 
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import LotteryCard from "./LotteryCard";
@@ -10,22 +11,40 @@ export default function Lottery() {
     // check proptypes
     const [activeLottery, setActiveLottery] = useState();
     const [allLotteries, setAllLotteries] = useState([]);
+    const [nextUrl, setNextUrl] = useState();
+    const [prevUrl, setPrevUrl] = useState();
+    const [allLotteriesCount, setAllLotteriesCount] = useState(0);
 
     const axiosPrivate = useAxiosPrivate();
 
-    useEffect(() => {
-        async function fetchActiveLottery() {
-            const response = await axiosPrivate.get("api/lottery/active/");
-            setActiveLottery(response.data[0]);
-        }
-        fetchActiveLottery();
+    const setPrevNextUrls = (data) => {
+        setNextUrl(data?.next);
+        setPrevUrl(data?.previous);
+    };
 
-        async function fetchAllLotteries() {
-            const response = await axiosPrivate.get("api/lottery/");
-            setAllLotteries(response.data);
-        }
+    const fetchAllLotteries = async (url = "api/lottery/") => {
+        const response = await axiosPrivate.get(url);
+        setAllLotteries(response.data?.results);
+        setPrevNextUrls(response.data);
+        setAllLotteriesCount(response.data.count);
+    };
+
+    useEffect(() => {
+        const fetchActiveLottery = async () => {
+            const response = await axiosPrivate.get("api/lottery/active/");
+            setActiveLottery(response.data.results && response.data.results[0]);
+        };
+
+        fetchActiveLottery();
         fetchAllLotteries();
     }, []);
+
+    const handlePaginationPrevClick = () => {
+        fetchAllLotteries(prevUrl);
+    };
+    const handlePaginationNextClick = () => {
+        fetchAllLotteries(nextUrl);
+    };
 
     return (
         <Container>
@@ -37,12 +56,28 @@ export default function Lottery() {
             )}
 
             <h1>All lotteries</h1>
+
             {allLotteries ? (
-                allLotteries.map((l) => (
-                    <div key={l.id}>
-                        <LotteryCard lottery={l} />
-                    </div>
-                ))
+                <Container>
+                    {allLotteries.map((l) => (
+                        <div key={l.id}>
+                            <LotteryCard lottery={l} />
+                        </div>
+                    ))}
+                    <Pagination>
+                        <Pagination.Prev
+                            onClick={handlePaginationPrevClick}
+                            disabled={prevUrl ? false : true}
+                        />
+                        <Pagination.Next
+                            onClick={handlePaginationNextClick}
+                            disabled={nextUrl ? false : true}
+                        />
+                        <Pagination.Item disabled>
+                            Total: {allLotteriesCount}
+                        </Pagination.Item>
+                    </Pagination>
+                </Container>
             ) : (
                 <EmptyCard />
             )}

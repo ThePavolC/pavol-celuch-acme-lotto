@@ -149,3 +149,9 @@ WEBPACK_LOADER = {
 # Always use IPython for shell_plus
 SHELL_PLUS = "ipython"
 SHELL_PLUS_PRINT_SQL = True
+
+# REST framework config
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 5,
+}
