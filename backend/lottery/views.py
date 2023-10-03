@@ -18,7 +18,7 @@ class LotteryViewSet(viewsets.ModelViewSet):
 
     @action(methods=["get"], detail=False)
     def active(self, request):
-        serializer = self.get_serializer(Lottery.objects.active(), many=True)
+        serializer = self.get_serializer(Lottery.objects.active(), many=False)
         return Response(serializer.data)
 
 

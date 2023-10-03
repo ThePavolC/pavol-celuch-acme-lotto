@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "webpack_loader",
     "django_extensions",
+    "django_cron",
     "access",
     "ballot",
     "lottery",
@@ -154,4 +155,32 @@ SHELL_PLUS_PRINT_SQL = True
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 5,
+}
+
+CRON_CLASSES = [
+    "lottery.cron.tasks.PickLotteryWinner",
+    "lottery.cron.tasks.StartNewLottery",
+]
+# poetry run python backend/manage.py runcrons
+
+# Django simple logging config
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+    },
 }

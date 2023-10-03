@@ -1,3 +1,5 @@
+import logging
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
@@ -6,7 +8,24 @@ from django.utils.timezone import now
 class LotteryManager(models.Manager):
     def active(self):
         today = now().date()
-        return self.get_queryset().filter(created__date=today)
+        today_lottery = self.get_queryset().filter(created__date=today)
+
+        if today_lottery.exists():
+            return today_lottery.get()
+
+        return Lottery.objects.none()
+
+    def create_new(self):
+        if self.active():
+            logging.warning("There is already an active lottery.")
+            return self.active()
+
+        lottery = Lottery.objects.create()
+        lottery.name = f"Lottery {lottery.id}"
+        lottery.prize = "Greate prize"
+        lottery.save()
+
+        return lottery
 
 
 class Lottery(models.Model):

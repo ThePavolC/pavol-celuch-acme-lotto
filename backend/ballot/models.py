@@ -6,9 +6,9 @@ from lottery.models import Lottery
 
 
 class Ballot(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     lottery = models.ForeignKey(
-        Lottery, on_delete=models.DO_NOTHING, related_name="lottery"
+        Lottery, on_delete=models.CASCADE, related_name="lottery"
     )
     created = models.DateTimeField(default=now)
 
