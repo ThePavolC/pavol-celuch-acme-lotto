@@ -6,6 +6,10 @@ install:
 run-server:
 	poetry run python backend/manage.py runserver
 
+.PHONY: run-crons
+run-crons:
+	poetry run python backend/manage.py runcrons
+
 .PHONY: shell
 shell:
 	poetry run python backend/manage.py shell_plus --ipython
