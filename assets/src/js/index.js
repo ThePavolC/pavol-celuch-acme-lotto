@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./components/App";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 ReactDOM.createRoot(document.getElementById("react-app")).render(
     <React.StrictMode>

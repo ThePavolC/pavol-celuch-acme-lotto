@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Container from "react-bootstrap/Container";
 import Pagination from "react-bootstrap/Pagination";
+import DatePicker from "react-datepicker";
 
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import LotteryCard from "./LotteryCard";
@@ -14,6 +15,7 @@ export default function AllLotteries() {
     const [prevUrl, setPrevUrl] = useState();
     const [allLotteriesCount, setAllLotteriesCount] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
 
     const axiosPrivate = useAxiosPrivate();
 
@@ -22,10 +24,10 @@ export default function AllLotteries() {
         setPrevUrl(data?.previous);
     };
 
-    const fetchAllLotteries = async (url = "api/lottery/") => {
+    const fetchAllLotteries = async (date = null, url = "api/lottery/") => {
         setLoading(true);
-
-        const response = await axiosPrivate.get(url);
+        const params = { date };
+        const response = await axiosPrivate.get(url, { params });
 
         setAllLotteries(response.data?.results);
         setPrevNextUrls(response.data);
@@ -39,10 +41,14 @@ export default function AllLotteries() {
     }, []);
 
     const handlePaginationPrevClick = () => {
-        fetchAllLotteries(prevUrl);
+        fetchAllLotteries(null, prevUrl);
     };
     const handlePaginationNextClick = () => {
-        fetchAllLotteries(nextUrl);
+        fetchAllLotteries(null, nextUrl);
+    };
+    const handleDateClick = (date) => {
+        setStartDate(date);
+        fetchAllLotteries(date);
     };
 
     return (
@@ -51,6 +57,10 @@ export default function AllLotteries() {
 
             {allLotteries ? (
                 <>
+                    <DatePicker
+                        selected={startDate}
+                        onChange={(date) => handleDateClick(date)}
+                    />
                     {loading ? (
                         <Spinner />
                     ) : (
