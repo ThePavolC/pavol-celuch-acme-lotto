@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "bynderlotto"
+name = "ACMElotto"
 version = "0.1.0"
 description = "Interview Assignment"
 authors = ["ThePavolC <celuch.pavol@gmail.com>"]

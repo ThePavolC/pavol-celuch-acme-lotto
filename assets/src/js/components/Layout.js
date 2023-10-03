@@ -14,7 +14,7 @@ export default function Layout() {
 
     return (
         <Container>
-            <h1>✨ BynderLotto ✨</h1>
+            <h1>✨ ACMELotto ✨</h1>
 
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
