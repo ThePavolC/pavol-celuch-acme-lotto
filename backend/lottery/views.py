@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.utils.timezone import now
-from rest_framework import viewsets, permissions, authentication
+from rest_framework import viewsets, permissions, authentication, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -17,6 +17,7 @@ class LotteryViewSet(viewsets.ModelViewSet):
         filters = {}
 
         try:
+            # create filter used to filter by date
             search_date_str = self.request.query_params.get("date")
             if search_date_str:
                 search_date = datetime.fromisoformat(search_date_str).date()
@@ -38,8 +39,17 @@ class LotteryViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class LotteryWinnerViewSet(viewsets.ModelViewSet):
+class LotteryWinnerViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = LotteryWinner.objects.all()
     serializer_class = LotteryWinnerSerializer
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+
+    def retrieve(self, request, *args, **kwargs):
+        lottery_id = kwargs.get("pk")
+        lottery = Lottery.objects.get(id=lottery_id)
+
+        obj = self.get_queryset().filter(lottery=lottery).get()
+        serializer = self.get_serializer(obj)
+
+        return Response(serializer.data)

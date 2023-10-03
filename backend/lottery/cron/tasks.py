@@ -9,6 +9,13 @@ logger = logging.getLogger(__name__)
 
 
 class PickLotteryWinner(CronJobBase):
+    """Task to get a currently active lottery and pick the winner.
+
+    We find the today's active lottery, get all it's ballot users
+    and randomly pick the winner.
+    The winner is then stored in LotteryWinner.
+    """
+
     RUN_AT_TIMES = ["23:59"]
 
     schedule = Schedule(run_at_times=RUN_AT_TIMES)
@@ -30,6 +37,8 @@ class PickLotteryWinner(CronJobBase):
 
 
 class StartNewLottery(CronJobBase):
+    """Task to create a new Lottery for the day."""
+
     RUN_AT_TIMES = ["00:01"]
 
     schedule = Schedule(run_at_times=RUN_AT_TIMES)
@@ -37,14 +46,8 @@ class StartNewLottery(CronJobBase):
 
     def do(self):
         logger.info(f"Starting StartNewLottery task")
-        new_lottery = Lottery.objects.create_new()
-        active = Lottery.objects.active()
 
-        if new_lottery == active:
-            logger.error(
-                "Error when starting a new lottery. There is already an active lottery."
-            )
-            return
+        new_lottery = Lottery.objects.create_new()
 
         logger.info(f"New lottery created: {new_lottery}")
         logger.info(f"Finished StartNewLottery task")

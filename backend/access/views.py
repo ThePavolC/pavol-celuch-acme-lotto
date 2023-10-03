@@ -7,6 +7,8 @@ from rest_framework.serializers import ValidationError
 
 
 class GetTokenView(ObtainAuthToken):
+    """Login view used to generate token."""
+
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(
             data=request.data, context={"request": request}
@@ -30,6 +32,8 @@ class GetTokenView(ObtainAuthToken):
 
 
 class CreateUserView(generics.CreateAPIView):
+    """Signup view used to create the new user."""
+
     def post(self, request, *args, **kwargs):
         form = NewUserForm(request.data)
 

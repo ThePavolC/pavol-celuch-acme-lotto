@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 
 class NewUserForm(UserCreationForm):
+    """Form used to parse user data during signup."""
+
     email = forms.EmailField(required=True)
 
     class Meta:
