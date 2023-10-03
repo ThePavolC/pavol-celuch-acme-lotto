@@ -1,0 +1,8 @@
+.ballots-container {
+    display: flex;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+}

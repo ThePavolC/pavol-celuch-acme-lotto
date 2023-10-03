@@ -8,6 +8,8 @@ import EmptyBallots from "./EmptyBallots";
 import BallotCard from "./BallotCard";
 import { Spinner } from "react-bootstrap";
 
+import "./MyBallots.css";
+
 export default function MyBallots() {
     const [ballots, setBallots] = useState([]);
     const [ballotsCount, setBallotsCount] = useState(0);
@@ -50,30 +52,36 @@ export default function MyBallots() {
             <h1>My Ballots</h1>
             {ballots ? (
                 <>
-                    <Container>
+                    <Container className="ballots-container">
                         {loading ? (
                             <Spinner />
                         ) : (
                             <>
                                 {ballots.map((b) => (
-                                    <BallotCard ballot={b} key={b.id} refreshBallots={fetchBallots}/>
+                                    <BallotCard
+                                        ballot={b}
+                                        key={b.id}
+                                        refreshBallots={fetchBallots}
+                                    />
                                 ))}
                             </>
                         )}
                     </Container>
-                    <Pagination>
-                        <Pagination.Prev
-                            onClick={handlePaginationPrevClick}
-                            disabled={prevUrl ? false : true}
-                        />
-                        <Pagination.Next
-                            onClick={handlePaginationNextClick}
-                            disabled={nextUrl ? false : true}
-                        />
-                        <Pagination.Item disabled>
-                            Total: {ballotsCount}
-                        </Pagination.Item>
-                    </Pagination>
+                    <div className="pagination-container">
+                        <Pagination>
+                            <Pagination.Prev
+                                onClick={handlePaginationPrevClick}
+                                disabled={prevUrl ? false : true}
+                            />
+                            <Pagination.Next
+                                onClick={handlePaginationNextClick}
+                                disabled={nextUrl ? false : true}
+                            />
+                            <Pagination.Item disabled>
+                                Total: {ballotsCount}
+                            </Pagination.Item>
+                        </Pagination>
+                    </div>
                 </>
             ) : (
                 <EmptyBallots />

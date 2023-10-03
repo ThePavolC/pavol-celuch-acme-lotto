@@ -7,6 +7,8 @@ import BuyBallotButton from "./BuyBallotButton";
 import ShowWinnerModalButton from "./ShowWinnerModalButton";
 import { prettyDate } from "../../utils/utils";
 
+import "./LotteryCard.css";
+
 const LotteryCard = ({ lottery, refreshCard }) => {
     const headerCopy = lottery.active
         ? `Active lottery on ${prettyDate(lottery.created)}`
@@ -18,7 +20,7 @@ const LotteryCard = ({ lottery, refreshCard }) => {
     };
 
     return (
-        <Card>
+        <Card className="card">
             <Card.Header>{headerCopy}</Card.Header>
             <Card.Body>
                 <Card.Title>{lottery.name}</Card.Title>

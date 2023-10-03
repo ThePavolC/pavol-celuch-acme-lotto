@@ -1,0 +1,22 @@
+.all-lotteries-container {
+    background-color: rgb(240, 240, 240);
+
+    .cards-container {
+        display: flex;
+    }
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .date-picker-container {
+        margin-right: 12px;
+    }
+
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+    }
+}

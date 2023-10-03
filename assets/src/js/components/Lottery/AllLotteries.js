@@ -9,6 +9,8 @@ import LotteryCard from "./LotteryCard";
 import EmptyCard from "./EmptyCard";
 import { Spinner } from "react-bootstrap";
 
+import "./AllLotteries.css";
+
 export default function AllLotteries() {
     const [allLotteries, setAllLotteries] = useState([]);
     const [nextUrl, setNextUrl] = useState();
@@ -52,19 +54,22 @@ export default function AllLotteries() {
     };
 
     return (
-        <Container>
-            <h1>All lotteries</h1>
-
-            {allLotteries ? (
-                <>
+        <Container className="all-lotteries-container">
+            <div className="header-container">
+                <h1>All lotteries</h1>
+                <div className="date-picker-container">
                     <DatePicker
                         selected={startDate}
                         onChange={(date) => handleDateClick(date)}
                     />
+                </div>
+            </div>
+            {allLotteries ? (
+                <>
                     {loading ? (
                         <Spinner />
                     ) : (
-                        <Container>
+                        <Container className="cards-container">
                             {allLotteries.map((l) => (
                                 <div key={l.id}>
                                     <LotteryCard lottery={l} />
@@ -72,19 +77,21 @@ export default function AllLotteries() {
                             ))}
                         </Container>
                     )}
-                    <Pagination>
-                        <Pagination.Prev
-                            onClick={handlePaginationPrevClick}
-                            disabled={prevUrl ? false : true}
-                        />
-                        <Pagination.Next
-                            onClick={handlePaginationNextClick}
-                            disabled={nextUrl ? false : true}
-                        />
-                        <Pagination.Item disabled>
-                            Total: {allLotteriesCount}
-                        </Pagination.Item>
-                    </Pagination>
+                    <div className="pagination-container">
+                        <Pagination>
+                            <Pagination.Prev
+                                onClick={handlePaginationPrevClick}
+                                disabled={prevUrl ? false : true}
+                            />
+                            <Pagination.Next
+                                onClick={handlePaginationNextClick}
+                                disabled={nextUrl ? false : true}
+                            />
+                            <Pagination.Item disabled>
+                                Total: {allLotteriesCount}
+                            </Pagination.Item>
+                        </Pagination>
+                    </div>
                 </>
             ) : (
                 <EmptyCard />
